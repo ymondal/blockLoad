@@ -98,36 +98,18 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 		biasCorrectedTS(biasCorrectedTS>5*xtrm) = Xmp(biasCorrectedTS>5*xtrm)/(nanmean(Xmc)+1.0e-6).*(nanmean(Xoc)+1.0e-6);
 		biasCorrectedTS(biasCorrectedTS>5*xtrm) = 5*xtrm;
 
-%		tsMean = mean(biasCorrectedTS); tsStd = std(biasCorrectedTS);
-
+		%% Return Gamma Mean
 		[bcParams] = gamfitMOM(biasCorrectedTS([biasCorrectedTS>0]));
 		rainDays = length(biasCorrectedTS([biasCorrectedTS>0]))/length(biasCorrectedTS);
 		tsMean = bcParams(1)*bcParams(2);
 
-		if tsMean < 0 || tsMean == NaN
-			tsMean = 0;
+		if tsMean < 0 || isnan(tsMean)
+			tsMean = rand*.1;
 		end
 
-		tsStd = 0;
-
-		%% Compute Mean -- this biasCorrected mean is itself! a gamma distritbution
-		%% experimental mean return
-%		tsStd = sqrt(bcParams(1)*bcParams(2)^2);
-		%% Modify means and stdev for dry days
-%		bcNoRain = length(biasCorrectedTS([abs(biasCorrectedTS)<=3]))/length(biasCorrectedTS);
-%		modVar = (tsMean - tsStd)*(1-bcNoRain);
-%		tsStd = tsMean - modVar;
-%		tsMean = tsMean*(1-bcNoRain);
-%		if tsMean < 0 || isnan(tsMean)
-%			tsMean = mean(biasCorrectedTS);  %% next experiment
-
-%			if tsMean < 0
-%				tsMean = 0;
-%			end
-%		end
-%		if tsStd < 0 || isnan(tsStd)
-%			tsStd = rand;
-%		end
+		%% Return Stdev -- untested, doesn't account for dry days
+		%% currently returns NaN as well
+		tsStd = sqrt(bcParams(1)*bcParams(2)^2);
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		%% NESTED HELPER FUNCTIONS; PART DUEX
