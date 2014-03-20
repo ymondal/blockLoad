@@ -29,7 +29,7 @@ function main(month,parStart,parEnd)
 	%% 1. Define Region
 	%% createBox(lonWest,lonEast,latNorth,latSouth,testRunNum)
 	%% runNum = 0; boxBorder = createBox(-124.7,-111.14,49.23,31.34,runNum); region = 'CONUStest'
-	runNum = 2; region = 'CONUS' % Full Computation over some rows
+	runNum = 4; region = 'CONUS' % Full Computation over some rows
 	%% runNum = 0; parStart = 1; parEnd = 345; region = 'CONUS' % Full Computation
 	%% runNum = 1; boxBorder = createBox(-119.5,-118.5,38.5,37.5,runNum); region = 'monoLakeCA' %% - mono lake (38°N, 119°W)
 	%% runNum = 1; boxBorder = createBox(-124.7,-123.7,48.5,47.5,runNum); region = 'forksWA' %% forks, WA (48°N,124.4°W)
