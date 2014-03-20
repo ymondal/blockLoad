@@ -104,7 +104,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 		tsMean = bcParams(1)*bcParams(2);
 
 		if tsMean < 0 || isnan(tsMean)
-			tsMean = rand*.1;
+			tsMean = rand*.01;
 		end
 
 		%% Return Stdev -- untested, doesn't account for dry days
