@@ -43,7 +43,7 @@ function main(month,parStart,parEnd)
 	%% runNum = 3; boxBorder = createBox(-122.7586,-121.7586, 37.5881, 36.5881,runNum); region = 'NorthSantaCruz'; %% for Alicia
 
 	if monthLoop >= 1 && monthLoop <= 4
-		nodeLag = 0;
+		nodeLag = 1;
 	elseif monthLoop >= 5 && monthLoop <= 8
 		nodeLag = -3;
 	else
