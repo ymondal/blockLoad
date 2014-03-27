@@ -101,7 +101,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 		%% Return Gamma Mean
 		[bcParams] = gamfitMOM(biasCorrectedTS([biasCorrectedTS>0]));
 		rainDays = length(biasCorrectedTS([biasCorrectedTS>0]))/length(biasCorrectedTS);
-		tsMean = bcParams(1)*bcParams(2);
+		tsMean = bcParams(1)*bcParams(2)*rainDays;
 
 		if tsMean < 0 || isnan(tsMean)
 			tsMean = rand*.01;
