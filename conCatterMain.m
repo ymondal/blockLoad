@@ -11,7 +11,7 @@
 %% 
 function conCatterMain(isTemp)
 
-	runNum = 3;
+	runNum = 5;
 	monthsRun = 12; %2
 	sectionStart = 1; %141
 	sectionEnd = 345; %171
@@ -20,9 +20,9 @@ function conCatterMain(isTemp)
 	%dataPath.save = '/Users/yoshi/Code/2013_keck/blockLoad/';
 
 	%region = 'CONUS';
-	region = 'CONUS/run_3';
+	region = 'CONUS/run_5';
 
-	savePath = strcat(dataPath.save,'testData/CONUS/run_3/run_3_raw/');
+	savePath = strcat(dataPath.save,'testData/CONUS/run_5/run_5_raw/');
 	plotPath = strcat(dataPath.save,'pics/',region,'/');
 	sectionTot = sectionEnd - sectionStart + 1;
 
@@ -157,17 +157,17 @@ function conCatterMain(isTemp)
 			precip.midH.std = cat(3,precip.midH.std,precipM.midH.std);
 			precip.obs = cat(3,precip.obs,precipM.obs);
 
-			arcgridwriteCustom(strcat(savePath,'precip_lgm_mean_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.mean,boxBorder)
-			arcgridwriteCustom(strcat(savePath,'precip_midH_mean_M',sprintf('%2.2d',month),'.asc'),precipM.midH.mean,boxBorder)
-			arcgridwriteCustom(strcat(savePath,'precip_obs_mean_M',sprintf('%2.2d',month),'.asc'),precipM.obs,boxBorder)
+			%arcgridwriteCustom(strcat(savePath,'precip_lgm_mean_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.mean,boxBorder)
+			%arcgridwriteCustom(strcat(savePath,'precip_midH_mean_M',sprintf('%2.2d',month),'.asc'),precipM.midH.mean,boxBorder)
+			%arcgridwriteCustom(strcat(savePath,'precip_obs_mean_M',sprintf('%2.2d',month),'.asc'),precipM.obs,boxBorder)
 			
 			precipM = struct('lgm',[],'midH',[],'obs',[]);
 			precipM.lgm = struct('mean',[],'std',[]);
 			precipM.midH = struct('mean',[],'std',[]);
 		end
 
-		zip(strcat(savePath,'PRECIP_',int2str(runNum),'.zip'),strcat(savePath,'*.asc'))
-		system(['rm ' strcat(savePath,'*.asc')])
+		%zip(strcat(savePath,'PRECIP_',int2str(runNum),'.zip'),strcat(savePath,'*.asc'))
+		%system(['rm ' strcat(savePath,'*.asc')])
 
 		save(strcat(savePath,'PRECIP_',int2str(runNum),'.mat'),'precip','boxBorder','plotPath','region','-v7.3')
 %		plotter(precip.lgm.mean,precip.midH.mean,precip.obs,boxBorder,'PPT',plotPath,region)

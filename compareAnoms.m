@@ -12,7 +12,7 @@
 function compareAnoms
 
 	dataPath = struct('obs','/home/data/obs/PRISM_345/','gcm','/home/data/gcm/ccsm4/', 'save','/home/data/blockLoad/', ...
-		'main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/run_3/run_3_raw/', 'matlabRoot','/home/matlabFiles');
+		'main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/run_5/run_5_raw/', 'matlabRoot','/home/matlabFiles');
 
 	boxBorder = [0,1,3105,1,7025];
 
@@ -30,30 +30,30 @@ function compareAnoms
 		prClimatology.lon = prStack.lon;
 		clear prStack 
 	
-		%tminStack = fileLoader('tasmin',dataPath,monthLoop)
-		%tasStack = fileLoader('tas',dataPath,monthLoop)
-		%tmaxStack = fileLoader('tasmax',dataPath,monthLoop)
-		%tminStack.hist = tminStack.hist - 273.15; tminStack.lgm = tminStack.lgm - 273.15; tminStack.midH = tminStack.midH - 273.15;
-		%tasStack.hist = tasStack.hist - 273.15; tasStack.lgm = tasStack.lgm - 273.15; tasStack.midH = tasStack.midH - 273.15;
-		%tmaxStack.hist = tmaxStack.hist - 273.15; tmaxStack.lgm = tmaxStack.lgm - 273.15; tmaxStack.midH = tmaxStack.midH - 273.15;
+		tminStack = fileLoader('tasmin',dataPath,monthLoop)
+		tasStack = fileLoader('tas',dataPath,monthLoop)
+		tmaxStack = fileLoader('tasmax',dataPath,monthLoop)
+		tminStack.hist = tminStack.hist - 273.15; tminStack.lgm = tminStack.lgm - 273.15; tminStack.midH = tminStack.midH - 273.15;
+		tasStack.hist = tasStack.hist - 273.15; tasStack.lgm = tasStack.lgm - 273.15; tasStack.midH = tasStack.midH - 273.15;
+		tmaxStack.hist = tmaxStack.hist - 273.15; tmaxStack.lgm = tmaxStack.lgm - 273.15; tmaxStack.midH = tmaxStack.midH - 273.15;
 
-                %tasClimatology.hist = cat(3,tasClimatology.hist,mean(tasStack.hist,3));
-                %tasClimatology.lgm = cat(3,tasClimatology.lgm,mean(tasStack.lgm,3));
-                %tasClimatology.midH = cat(3,tasClimatology.midH,mean(tasStack.midH,3));
-		%tasClimatology.lat = tasStack.lat; tasClimatology.lon = tasStack.lon;
+                tasClimatology.hist = cat(3,tasClimatology.hist,mean(tasStack.hist,3));
+                tasClimatology.lgm = cat(3,tasClimatology.lgm,mean(tasStack.lgm,3));
+                tasClimatology.midH = cat(3,tasClimatology.midH,mean(tasStack.midH,3));
+		tasClimatology.lat = tasStack.lat; tasClimatology.lon = tasStack.lon;
 	
-                %tmaxClimatology.hist = cat(3,tmaxClimatology.hist,mean(tmaxStack.hist,3));
-                %tmaxClimatology.lgm = cat(3,tmaxClimatology.lgm,mean(tmaxStack.lgm,3));
-                %tmaxClimatology.midH = cat(3,tmaxClimatology.midH,mean(tmaxStack.midH,3));
-		%tmaxClimatology.lat = tmaxStack.lat; tmaxClimatology.lon = tmaxStack.lon;
+                tmaxClimatology.hist = cat(3,tmaxClimatology.hist,mean(tmaxStack.hist,3));
+                tmaxClimatology.lgm = cat(3,tmaxClimatology.lgm,mean(tmaxStack.lgm,3));
+                tmaxClimatology.midH = cat(3,tmaxClimatology.midH,mean(tmaxStack.midH,3));
+		tmaxClimatology.lat = tmaxStack.lat; tmaxClimatology.lon = tmaxStack.lon;
 
-                %tminClimatology.hist = cat(3,tminClimatology.hist,mean(tminStack.hist,3));
-                %tminClimatology.lgm = cat(3,tminClimatology.lgm,mean(tminStack.lgm,3));
-                %tminClimatology.midH = cat(3,tminClimatology.midH,mean(tminStack.midH,3));
-		%tminClimatology.lat = tminStack.lat; tminClimatology.lon = tminStack.lon;
+                tminClimatology.hist = cat(3,tminClimatology.hist,mean(tminStack.hist,3));
+                tminClimatology.lgm = cat(3,tminClimatology.lgm,mean(tminStack.lgm,3));
+                tminClimatology.midH = cat(3,tminClimatology.midH,mean(tminStack.midH,3));
+		tminClimatology.lat = tminStack.lat; tminClimatology.lon = tminStack.lon;
 	end
 
-	%tempAnoms = temp_comp(dataPath,boxBorder,tminClimatology,tmaxClimatology,tasClimatology);
+	tempAnoms = temp_comp(dataPath,boxBorder,tminClimatology,tmaxClimatology,tasClimatology);
 	precipAnoms = precip_comp(prClimatology,boxBorder,dataPath);
 
 	bcsdPath = strcat(dataPath.save,'testData/CONUS/');
@@ -61,19 +61,19 @@ function compareAnoms
 
         metaAnoms = struct('tas',[],'tmin',[],'tmax',[],'precip',[]);
         metaAnoms.tas = struct('lgm',[],'midH',[]);
-        %metaAnoms.tmin = metaAnoms.tas; metaAnoms.tmax = metaAnoms.tas;
+        metaAnoms.tmin = metaAnoms.tas; metaAnoms.tmax = metaAnoms.tas;
 	metaAnoms.precip = metaAnoms.tas;
 
-	%metaAnoms.tas.lgm = tempAnoms.tas.lgm - bcsdAnoms.tas.lgm;
-        %metaAnoms.tas.midH = tempAnoms.tas.midH - bcsdAnoms.tas.midH;
-        %metaAnoms.tmin.lgm = tempAnoms.tmin.lgm - bcsdAnoms.tmin.lgm;
-        %metaAnoms.tmin.midH = tempAnoms.tmin.midH - bcsdAnoms.tmin.midH;
-        %metaAnoms.tmax.lgm = tempAnoms.tmax.lgm - bcsdAnoms.tmax.lgm;
-        %metaAnoms.tmax.midH = tempAnoms.tmax.midH - bcsdAnoms.tmax.midH;
+	metaAnoms.tas.lgm = tempAnoms.tas.lgm - bcsdAnoms.tas.lgm;
+        metaAnoms.tas.midH = tempAnoms.tas.midH - bcsdAnoms.tas.midH;
+        metaAnoms.tmin.lgm = tempAnoms.tmin.lgm - bcsdAnoms.tmin.lgm;
+        metaAnoms.tmin.midH = tempAnoms.tmin.midH - bcsdAnoms.tmin.midH;
+        metaAnoms.tmax.lgm = tempAnoms.tmax.lgm - bcsdAnoms.tmax.lgm;
+        metaAnoms.tmax.midH = tempAnoms.tmax.midH - bcsdAnoms.tmax.midH;
         metaAnoms.precip.lgm = precipAnoms.lgm - bcsdAnoms.precip.lgm;
         metaAnoms.precip.midH = precipAnoms.midH - bcsdAnoms.precip.midH;
 
-	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_F.mat','metaAnoms','-v7.3');
+	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_5.mat','metaAnoms','-v7.3');
 
 	function [anomalies] = precip_comp(prStack,boxBorder,inputDataPath)
 
