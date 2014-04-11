@@ -73,7 +73,13 @@ function compareAnoms
         metaAnoms.precip.lgm = precipAnoms.lgm - bcsdAnoms.precip.lgm;
         metaAnoms.precip.midH = precipAnoms.midH - bcsdAnoms.precip.midH;
 
+%bcsdAnoms.tmax = 0; bcsdAnoms.tmin = 0; bcsdAnoms.tas = 0;
+%bcsdAnoms
+metaAnoms.tmax = 0; metaAnoms.tmin = 0; metaAnoms.tas = 0;
+metaAnoms
 	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_5.mat','metaAnoms','-v7.3');
+% save('/home/ubuntu/data/blockLoad/testData/CONUS/final/precip_anoms_GCM_5.mat','precipAnoms','-v7.3');
+% save('/home/ubuntu/data/blockLoad/testData/CONUS/final/BCSD_Anomalies_5.mat','bcsdAnoms','-v7.3');
 
 	function [anomalies] = precip_comp(prStack,boxBorder,inputDataPath)
 
@@ -83,12 +89,17 @@ function compareAnoms
 		lgmBlock = stackBlock(prStack.lat,prStack.lon,prStack.lgm,boxBorder);
 		midHBlock = stackBlock(prStack.lat,prStack.lon,prStack.midH,boxBorder);
 
-		anomalies.lgm = histBlock - lgmBlock;
-		anomalies.midH = histBlock - midHBlock;
+		anomalies.lgm = lgmBlock - histBlock;
+		anomalies.midH = midHBlock - histBlock;
 
 	end
 
 	function [anomalies] = temp_comp(inputDataPath,boxBorder,tminStack,tmaxStack,tasStack)
+
+anomalies = struct('tas',[],'tmin',[],'tmax',[]);
+anomalies.tas = struct('lgm',NaN,'midH',NaN);
+anomalies.tmin = anomalies.tas; anomalies.tmax = anomalies.tas;
+return
 
 		anomalies = struct('tas',[],'tmin',[],'tmax',[]);
 		anomalies.tas = struct('lgm',[],'midH',[]);

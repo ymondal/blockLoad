@@ -13,7 +13,15 @@ function bcsdAnoms = computeBCSDanoms(path)
 
         bcsdAnoms = struct('tas',[],'tmin',[],'tmax',[],'precip',[]);
         bcsdAnoms.tas = struct('lgm',[],'midH',[]);
+bcsdAnoms.tmin = NaN;
         bcsdAnoms.tmin = bcsdAnoms.tas; bcsdAnoms.tmax = bcsdAnoms.tas; bcsdAnoms.precip = bcsdAnoms.tas;
+
+load(strcat(path,'run_5/PRECIP_5.mat'))
+        bcsdAnoms.precip.lgm = precip.lgm.mean - precip.obs;
+        bcsdAnoms.precip.midH = precip.midH.mean - precip.obs;
+        clear precip
+
+return
 
 	load(strcat(path,'final/TAS_F.mat'))
 	bcsdAnoms.tas.lgm = tas.lgm.mean - tas.obs;
@@ -29,8 +37,3 @@ function bcsdAnoms = computeBCSDanoms(path)
         bcsdAnoms.tmin.lgm = tmin.lgm.mean - tmin.obs;
         bcsdAnoms.tmin.midH = tmin.midH.mean - tmin.obs;
         clear tmin
-
-        load(strcat(path,'run_5/PRECIP_5.mat'))
-        bcsdAnoms.precip.lgm = precip.lgm.mean - precip.obs;
-        bcsdAnoms.precip.midH = precip.midH.mean - precip.obs;
-        clear precip
