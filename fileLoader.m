@@ -77,21 +77,5 @@ function files = fileLoader(ncFilesToLoad,Pwdz,monthIdx)
 
 	files = struct('hist',histStack,'lgm',lgmStack,'midH',midHStack,'lat',gcm_lat,'lon',gcm_lon,'glacierMask',masks,'month',monthIdx);
 
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%% NESTED HELPER FUNCTIONS
-	%% 1. Lock File
-	%% 2. Unlock File
-
-%        function getLock(lockPath,fName)
-%                d = strcat('mkdir',{' '},lockPath,fName,{' '},'2>/dev/null');
-%                while system(d{1})
-%                        e = strcat(fName,{' '},'is locked...waiting 10 seconds'); disp(e{1})
-%			pause(10)
-%                end
-%        end
-
-%	function releaseLock(lockPath,fName)
-%		d = strcat('rmdir',{' '},lockPath,fName,{' '},'2>/dev/null'); system(d{1});		
-%	end
 
 end
