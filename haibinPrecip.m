@@ -129,7 +129,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 			%quantiles(idx1) = gamcdf(precipVals(idx1),Para1,Para2);
 			%This is to scale the wet portion quantile values.
 			quantiles(idx1) = wetPortion*gamcdf(precipVals(idx1),params(1),params(2))+dryPortion;
-			%This is to get a random # for the dry portion.
+			%This is to get a random # for the dry portion. this is actually OK // these values always get set to zero -- the line after this function call forces all zeros to report negative quantiles. and the function after that culls negative values
 			quantiles(idx2) = dryPortion*rand(size(precipVals(idx2)));
 		end
 
