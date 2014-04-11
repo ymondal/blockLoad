@@ -86,7 +86,11 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 			end
 		else
 			biasCorrectedTS = (Xmp+1.0e-6) + Xoc - (Xmc+1.0e-6);
-			%biasCorrectedTS = (Xmp+1.0e-6) ./ (Xmc+1.0e-6) .* Xoc;
+			%% If model projected and model current are too far apart from one another, all
+			%% of biasCorrectedTS will be negative
+                        if sum(biasCorrectedTS > 0) <= 1
+                                biasCorrectedTS = (Xmp+1.0e-6) ./ (Xmc+1.0e-6) .* Xoc;
+                        end
 		end
 
 		%% Control for unrealistic large values
@@ -103,8 +107,9 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 		rainDays = length(biasCorrectedTS([biasCorrectedTS>0]))/length(biasCorrectedTS);
 		tsMean = bcParams(1)*bcParams(2)*rainDays;
 
-		if tsMean < 0 || isnan(tsMean)
-			tsMean = rand*.01;
+		if tsMean < 0
+			disp('halting computation: tsMean shouldnt be negative')
+			asdf
 		end
 
 		%% Return Stdev -- untested, doesn't account for dry days
