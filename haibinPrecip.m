@@ -38,7 +38,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 
 		%% Run modelProjected thorugh mixed_gam function
 		%% If there aren't enough days, set Xmp = 0 and create quantile lookup values
-		if size(modelProjected.ts0,1)<8
+		if size(modelProjected.ts0,1)<30
 			modelProjectedQuantile_control = rand(size(modelProjected.tsFull));
 			Xmp = zeros(size(modelProjectedQuantile_control));
 			modelProjectedQuantile = modelProjectedQuantile_control;
@@ -53,7 +53,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 		end
 
 		%% Look up modelProjected in observedCurrent distribution
-		if size(obs.ts0,1)<8
+		if size(obs.ts0,1)<30
 			%% Control for dry observation time series
 			Xoc = zeros(size(modelProjectedQuantile));
 		else
@@ -64,7 +64,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 		end
 
 		%% Look up modelProjected in modelCurrent distribution
-		if size(modelCurrent.ts0,1)<8
+		if size(modelCurrent.ts0,1)<30
 			Xmc = zeros(size(modelProjectedQuantile));
 		else
 			[modelCurrentParams] = gamfitMOM(modelCurrent.ts0);
@@ -88,7 +88,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 			biasCorrectedTS = (Xmp+1.0e-6) + Xoc - (Xmc+1.0e-6);
 			%% If model projected and model current are too far apart from one another, all
 			%% of biasCorrectedTS will be negative
-                        if sum(biasCorrectedTS > 0) <= 1
+                        if sum(biasCorrectedTS > 0) < 30
                                 biasCorrectedTS = (Xmp+1.0e-6) ./ (Xmc+1.0e-6) .* Xoc;
                         end
 		end

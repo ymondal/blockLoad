@@ -11,7 +11,7 @@
 %% 
 function conCatterMain(isTemp)
 
-	runNum = 5;
+	runNum = 6;
 	monthsRun = 12; %2
 	sectionStart = 1; %141
 	sectionEnd = 345; %171
@@ -20,9 +20,9 @@ function conCatterMain(isTemp)
 	%dataPath.save = '/Users/yoshi/Code/2013_keck/blockLoad/';
 
 	%region = 'CONUS';
-	region = 'CONUS/run_5';
+	region = 'CONUS/run_6';
 
-	savePath = strcat(dataPath.save,'testData/CONUS/run_5/run_5_raw/');
+	savePath = strcat(dataPath.save,'testData/CONUS/run_6/run_6_raw/');
 	plotPath = strcat(dataPath.save,'pics/',region,'/');
 	sectionTot = sectionEnd - sectionStart + 1;
 
@@ -78,8 +78,8 @@ function conCatterMain(isTemp)
 			
 			tmin.lgm.mean = cat(3,tmin.lgm.mean,tminM.lgm.mean);
 			tmin.lgm.std = cat(3,tmin.lgm.std,tminM.lgm.std);
-			%tmin.midH.mean = cat(3,tmin.midH.mean,tminM.midH.mean);
-			%tmin.midH.std = cat(3,tmin.midH.std,tminM.midH.std);
+			tmin.midH.mean = cat(3,tmin.midH.mean,tminM.midH.mean);
+			tmin.midH.std = cat(3,tmin.midH.std,tminM.midH.std);
 			tmin.obs = cat(3,tmin.obs,tminM.obs);
 
 			tmax.lgm.mean = cat(3,tmax.lgm.mean,tmaxM.lgm.mean);

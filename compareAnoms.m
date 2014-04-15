@@ -12,7 +12,7 @@
 function compareAnoms
 
 	dataPath = struct('obs','/home/data/obs/PRISM_345/','gcm','/home/data/gcm/ccsm4/', 'save','/home/data/blockLoad/', ...
-		'main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/run_5/run_5_raw/', 'matlabRoot','/home/matlabFiles');
+		'main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/run_6/run_6_raw/', 'matlabRoot','/home/matlabFiles');
 
 	boxBorder = [0,1,3105,1,7025];
 
@@ -77,7 +77,7 @@ function compareAnoms
 %bcsdAnoms
 metaAnoms.tmax = 0; metaAnoms.tmin = 0; metaAnoms.tas = 0;
 metaAnoms
-	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_5.mat','metaAnoms','-v7.3');
+	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_6.mat','metaAnoms','-v7.3');
 % save('/home/ubuntu/data/blockLoad/testData/CONUS/final/precip_anoms_GCM_5.mat','precipAnoms','-v7.3');
 % save('/home/ubuntu/data/blockLoad/testData/CONUS/final/BCSD_Anomalies_5.mat','bcsdAnoms','-v7.3');
 
