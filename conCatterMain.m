@@ -11,7 +11,7 @@
 %% 
 function conCatterMain(isTemp)
 
-	runNum = 6;
+	runNum = 7;
 	monthsRun = 12; %2
 	sectionStart = 1; %141
 	sectionEnd = 345; %171
@@ -20,9 +20,9 @@ function conCatterMain(isTemp)
 	%dataPath.save = '/Users/yoshi/Code/2013_keck/blockLoad/';
 
 	%region = 'CONUS';
-	region = 'CONUS/run_6';
+	region = 'CONUS/run_7';
 
-	savePath = strcat(dataPath.save,'testData/CONUS/run_6/run_6_raw/');
+	savePath = strcat(dataPath.save,'testData/CONUS/run_7/run_7_raw/');
 	plotPath = strcat(dataPath.save,'pics/',region,'/');
 	sectionTot = sectionEnd - sectionStart + 1;
 

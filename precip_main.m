@@ -48,8 +48,8 @@ function precip_main(prStack,boxBorder,region,inputDataPath,CONUSrun)
 	allRows = boxBorder(1,3)-boxBorder(1,2)+1;
 
 	precipPart = struct('lgm',[],'midH',[],'obs',[]);
-	precipPart.lgm = struct('mean',[],'std',[]);
-	precipPart.midH = struct('mean',[],'std',[]);
+	precipPart.lgm = struct('mean',[],'std',[],'nanHandled',[]);
+	precipPart.midH = struct('mean',[],'std',[],'nanHandled',[]);
 
 	%isMasked = struct('hist',[],'lgm',[],'midH',[]);
 
@@ -58,7 +58,8 @@ function precip_main(prStack,boxBorder,region,inputDataPath,CONUSrun)
 
 			%isMasked.lgm = mask.lgm(row,col); isMasked.hist = mask.hist(row,col); isMasked.midH = mask.midH(row,col);
 
-			[precipPart.lgm.mean(row,col), precipPart.midH.mean(row,col),precipPart.lgm.std(row,col),precipPart.midH.std(row,col)] = ... 
+			[precipPart.lgm.mean(row,col), precipPart.midH.mean(row,col),precipPart.lgm.std(row,col),precipPart.midH.std(row,col),...
+				precipPart.lgm.nanHandled(row,col),precipPart.midH.nanHandled(row,col)] = ... 
 				quantileMatch(obsStack(row,col,:),histBlock(row,col,:),lgmBlock(row,col,:),midHBlock(row,col,:),5);
 
 		end

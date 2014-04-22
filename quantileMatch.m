@@ -10,7 +10,7 @@
 %% HISTORY:
 %% YM 02/27/2014 -- First Draft Written
 
-function [lgmMean, midHMean, lgmStd, midHStd] = quantileMatch(obs,hist,lgm,midH,pptFlag)
+function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = quantileMatch(obs,hist,lgm,midH,pptFlag)
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%% PREPROCESS
@@ -25,14 +25,16 @@ function [lgmMean, midHMean, lgmStd, midHStd] = quantileMatch(obs,hist,lgm,midH,
 	if isnan(sum(obs)) %% || masks.hist
 		lgmMean = NaN; midHMean = NaN;
 		lgmStd = NaN; midHStd = NaN;
+		lgmNanHandled = NaN; midHNanHandled = NaN;
 		return
 	end
 
 	%% 3. Send them down for processing
 	if ~isempty(pptFlag)
-		[lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH);
+		[lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = haibinPrecip(obs,hist,lgm,midH);
 	else
 		[lgmMean, midHMean, lgmStd, midHStd] = tempBcsd(obs,hist,lgm,midH);
+		lgmNanHandled = 0; midHNanHandled = 0;
 	end
 		
 end

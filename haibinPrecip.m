@@ -11,12 +11,12 @@
 %% HISTORY:
 %% YM 07/15/2013 -- Frist Fully Debugged Version Written
 
-function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
+function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = haibinPrecip(obs,hist,lgm,midH)
 
 	obs = tsStruct(obs); hist = tsStruct(hist); lgm = tsStruct(lgm); midH = tsStruct(midH);
 
-	[lgmMean,lgmStd] = bcsdPrecip(obs,hist,lgm);
-	[midHMean,midHStd] = bcsdPrecip(obs,hist,midH);
+	[lgmMean,lgmStd,lgmNanHandled] = bcsdPrecip(obs,hist,lgm);
+	[midHMean,midHStd,midHNanHandled] = bcsdPrecip(obs,hist,midH);
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%% NESTED FUNCTIONS
@@ -34,7 +34,7 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 	end
 
 	%% 2. Precipitation BSD
-	function [tsMean,tsStd] = bcsdPrecip(obs,modelCurrent,modelProjected)
+	function [tsMean,tsStd,nanHandled] = bcsdPrecip(obs,modelCurrent,modelProjected)
 
 		%% Run modelProjected thorugh mixed_gam function
 		%% If there aren't enough days, set Xmp = 0 and create quantile lookup values
@@ -88,8 +88,10 @@ function [lgmMean, midHMean, lgmStd, midHStd] = haibinPrecip(obs,hist,lgm,midH)
 			biasCorrectedTS = (Xmp+1.0e-6) + Xoc - (Xmc+1.0e-6);
 			%% If model projected and model current are too far apart from one another, all
 			%% of biasCorrectedTS will be negative
-                        if sum(biasCorrectedTS > 0) < 30
+                        nanHandled = 0;
+			if sum(biasCorrectedTS > 0) < 30
                                 biasCorrectedTS = (Xmp+1.0e-6) ./ (Xmc+1.0e-6) .* Xoc;
+				nanHandled = 1;
                         end
 		end
 
