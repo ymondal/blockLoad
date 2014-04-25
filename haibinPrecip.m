@@ -36,8 +36,6 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 	%% 2. Precipitation BSD
 	function [tsMean,tsStd,nanHandled] = bcsdPrecip(obs,modelCurrent,modelProjected)
 
-flag = 0;
-
 		%% Run modelProjected thorugh mixed_gam function
 		%% If there aren't enough days, set Xmp = 0 and create quantile lookup values
 		if size(modelProjected.ts0,1)<30
@@ -58,8 +56,7 @@ flag = 0;
 		if size(obs.ts0,1)<30
 			%% Control for dry observation time series
 			Xoc = zeros(size(modelProjectedQuantile));
-obs.ts0
-flag = 1;
+			obsCurrentParams = [NaN 0];
 		else
 			[obsCurrentParams] = gamfitMOM(obs.ts0);
 			obsCurrentQuantile = (modelProjectedQuantile-obs.dry)/obs.wet;
@@ -99,16 +96,6 @@ flag = 1;
                         end
 		end
 
-if flag == 1
-nanHandled
-Xoc
-Xmc
-Xmp
-biasCorrectedTS
-obsCurrentParams
-error('wtf')
-end
-
 		%% Control for unrealistic large values
 		if obsCurrentParams(1)~=Inf && obsCurrentParams(2)~=Inf
 		    xtrm = max(nanmax(Xoc),mixed_gaminv(0.9999,obsCurrentParams));
@@ -124,8 +111,7 @@ end
 		tsMean = bcParams(1)*bcParams(2)*rainDays;
 
 		if tsMean < 0
-			disp('halting computation: tsMean shouldnt be negative')
-			asdf
+			error('halting computation: tsMean shouldnt be negative')
 		end
 
 		%% Return Stdev -- untested, doesn't account for dry days
