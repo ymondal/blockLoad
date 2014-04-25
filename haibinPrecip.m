@@ -56,6 +56,8 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 		if size(obs.ts0,1)<30
 			%% Control for dry observation time series
 			Xoc = zeros(size(modelProjectedQuantile));
+obs.ts0
+error('stopping')
 		else
 			[obsCurrentParams] = gamfitMOM(obs.ts0);
 			obsCurrentQuantile = (modelProjectedQuantile-obs.dry)/obs.wet;
