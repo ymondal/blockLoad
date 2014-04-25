@@ -90,7 +90,7 @@ function main(month,parStart,parEnd)
         end
 
         matlabpool close
-asdf
+error('done!')
 	%% TEMPERATURE
 	clear prStack
 	global tminStack tasStack tmaxStack
