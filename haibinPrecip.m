@@ -57,7 +57,7 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 			%% Control for dry observation time series
 			Xoc = zeros(size(modelProjectedQuantile));
 obs.ts0
-error('stopping')
+flag = 1;
 		else
 			[obsCurrentParams] = gamfitMOM(obs.ts0);
 			obsCurrentQuantile = (modelProjectedQuantile-obs.dry)/obs.wet;
@@ -96,6 +96,16 @@ error('stopping')
 				nanHandled = 1;
                         end
 		end
+
+if flag == 1
+nanHandled
+Xoc
+Xmc
+Xmp
+biasCorrectedTS
+obsCurrentParams
+error('wtf')
+end
 
 		%% Control for unrealistic large values
 		if obsCurrentParams(1)~=Inf && obsCurrentParams(2)~=Inf
