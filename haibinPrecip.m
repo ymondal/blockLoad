@@ -36,6 +36,8 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 	%% 2. Precipitation BSD
 	function [tsMean,tsStd,nanHandled] = bcsdPrecip(obs,modelCurrent,modelProjected)
 
+flag = 0;
+
 		%% Run modelProjected thorugh mixed_gam function
 		%% If there aren't enough days, set Xmp = 0 and create quantile lookup values
 		if size(modelProjected.ts0,1)<30
