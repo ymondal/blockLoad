@@ -110,8 +110,13 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 		rainDays = length(biasCorrectedTS([biasCorrectedTS>0]))/length(biasCorrectedTS);
 		tsMean = bcParams(1)*bcParams(2)*rainDays;
 
+		%% On some occasions, Xoc is set to zero because there are so many dry days
+		if isnan(tsMean)
+			tsMean = 0;
+		end
+
 		if tsMean < 0
-			error('halting computation: tsMean shouldnt be negative')
+			error('halting computation: tsMean is incorrect')
 		end
 
 		%% Return Stdev -- untested, doesn't account for dry days
