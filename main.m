@@ -42,13 +42,13 @@ function main(month,parStart,parEnd)
 	%% runNum = 2; boxBorder = createBox(-89.25,-88.25,41,40,runNum); region = 'BloomingtonIL' %% ice sheet test
 	%% runNum = 3; boxBorder = createBox(-122.7586,-121.7586, 37.5881, 36.5881,runNum); region = 'NorthSantaCruz'; %% for Alicia
 
-	if monthLoop >= 1 && monthLoop <= 4
-		nodeLag = 1;
-	elseif monthLoop >= 5 && monthLoop <= 8
+%	if monthLoop >= 1 && monthLoop <= 4
+%		nodeLag = 1;
+%	elseif monthLoop >= 5 && monthLoop <= 8
 		nodeLag = -3;
-	else
-		nodeLag = -7;
-	end
+%	else
+%		nodeLag = -7;
+%	end
 
 	parDiff = parEnd - parStart;
 	boxBorder = [runNum, 9*(parStart-1) + 1, 9*parEnd,1,7025];
