@@ -72,7 +72,7 @@ function main(month,parStart,parEnd)
     	prStack.hist = prStack.hist * 24 * 60 * 60 * dayPerMonth(monthLoop); prStack.lgm = prStack.lgm * 24 * 60 * 60 * dayPerMonth(monthLoop);
 	prStack.midH = prStack.midH * 24 * 60 * 60 * dayPerMonth(monthLoop);
 
-	clusterDirectives(monthLoop,boxBorder,dataPath,parDiff,runNum,nodeLag);
+%	clusterDirectives(monthLoop,boxBorder,dataPath,parDiff,runNum,nodeLag);
 
 	% clear boxBorder so it can be loaded by threads
 	clear boxBorder
