@@ -19,7 +19,7 @@ function arcgridwrite(fileName,Z,boxBorder)
 
 	%replace NaNs with NODATA value 
 	Z(isnan(Z))=-9999;
-	Z=fliplr(Z);
+	Z=flipud(Z);
 
 	%define precision of output file
 	dc = 4;
@@ -34,11 +34,14 @@ function arcgridwrite(fileName,Z,boxBorder)
 	fprintf(fid,'%s\t','nrows');
 	fprintf(fid,'%d\n',mz);
 	fprintf(fid,'%s\t','xllcorner');
-	fprintf(fid,[dc,'\n'],min(lats));
+%fprintf(fid,[dc,'\n'],min(lons));
+	fprintf(fid,[dc,'\n'],-125.020833);
 	fprintf(fid,'%s\t','yllcorner');
-	fprintf(fid,[dc,'\n'],min(lons));
+%fprintf(fid,[dc,'\n'],min(lats));
+	fprintf(fid,[dc,'\n'],24.062500333119);
 	fprintf(fid,'%s\t','cellsize');
-	fprintf(fid,[dc,'\n'],obsDef.deltaLat);
+%fprintf(fid,[dc,'\n'],obsDef.deltaLat);
+	fprintf(fid,[dc,'\n'],0.0083333333330444);
 	fprintf(fid,'%s\t','NODATA_value');
 	fprintf(fid,[dc,'\n'],-9999);
 

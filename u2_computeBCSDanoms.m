@@ -16,7 +16,7 @@ function bcsdAnoms = computeBCSDanoms(path)
 bcsdAnoms.tmin = NaN;
         bcsdAnoms.tmin = bcsdAnoms.tas; bcsdAnoms.tmax = bcsdAnoms.tas; bcsdAnoms.precip = bcsdAnoms.tas;
 
-load(strcat(path,'run_7/PRECIP_7.mat'))
+load(strcat(path,'run_8/PRECIP_8.mat'))
         bcsdAnoms.precip.lgm = precip.lgm.mean - precip.obs;
         bcsdAnoms.precip.midH = precip.midH.mean - precip.obs;
         clear precip

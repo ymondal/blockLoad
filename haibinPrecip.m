@@ -111,6 +111,8 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 		tsMean = bcParams(1)*bcParams(2)*rainDays;
 
 		%% On some occasions, Xoc is set to zero because there are so many dry days
+                %% tsMean NaN occurs when bcParams is NaN -- which occurs if biasCorrectedTS is all zeros
+                %% biasCorrectedTS is all zero when Xoc is set to zero and alternate bias correction formula is used
 		if isnan(tsMean)
 			tsMean = 0;
 		end

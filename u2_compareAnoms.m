@@ -12,7 +12,7 @@
 function compareAnoms
 
 	dataPath = struct('obs','/home/data/obs/PRISM_345/','gcm','/home/data/gcm/ccsm4/', 'save','/home/data/blockLoad/', ...
-		'main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/run_7/run_7_raw/', 'matlabRoot','/home/matlabFiles');
+		'main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/run_8/run_8_raw/', 'matlabRoot','/home/matlabFiles');
 
 	boxBorder = [0,1,3105,1,7025];
 
@@ -57,7 +57,11 @@ function compareAnoms
 	precipAnoms = precip_comp(prClimatology,boxBorder,dataPath);
 
 	bcsdPath = strcat(dataPath.save,'testData/CONUS/');
-	bcsdAnoms = computeBCSDanoms(bcsdPath);
+	bcsdAnoms = u2_computeBCSDanoms(bcsdPath);
+
+save('/home/ubuntu/data/blockLoad/testData/CONUS/final/precip_anoms_GCM_8.mat','precipAnoms','-v7.3');
+save('/home/ubuntu/data/blockLoad/testData/CONUS/final/BCSD_Anomalies_8.mat','bcsdAnoms','-v7.3');
+asdf
 
         metaAnoms = struct('tas',[],'tmin',[],'tmax',[],'precip',[]);
         metaAnoms.tas = struct('lgm',[],'midH',[]);
@@ -77,9 +81,7 @@ function compareAnoms
 %bcsdAnoms
 metaAnoms.tmax = 0; metaAnoms.tmin = 0; metaAnoms.tas = 0;
 metaAnoms
-	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_7.mat','metaAnoms','-v7.3');
-% save('/home/ubuntu/data/blockLoad/testData/CONUS/final/precip_anoms_GCM_5.mat','precipAnoms','-v7.3');
-% save('/home/ubuntu/data/blockLoad/testData/CONUS/final/BCSD_Anomalies_5.mat','bcsdAnoms','-v7.3');
+	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_8.mat','metaAnoms','-v7.3');
 
 	function [anomalies] = precip_comp(prStack,boxBorder,inputDataPath)
 
