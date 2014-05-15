@@ -87,13 +87,7 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 			end
 		else
 			biasCorrectedTS = (Xmp+1.0e-6) + Xoc - (Xmc+1.0e-6);
-			%% If model projected and model current are too far apart from one another, all
-			%% of biasCorrectedTS will be negative
-                        nanHandled = 0;
-			if sum(biasCorrectedTS > 0) < 30
-                                biasCorrectedTS = (Xmp+1.0e-6) ./ (Xmc+1.0e-6) .* Xoc;
-				nanHandled = 1;
-                        end
+			biasCorrectedTS_alt = (Xmp+1.0e-6) ./ (Xmc+1.0e-6) .* Xoc;
 		end
 
 		%% Control for unrealistic large values
@@ -102,19 +96,27 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = h
 		else
 		    xtrm = nanmax(Xoc);
 		end
+
 		biasCorrectedTS(biasCorrectedTS>5*xtrm) = Xmp(biasCorrectedTS>5*xtrm)/(nanmean(Xmc)+1.0e-6).*(nanmean(Xoc)+1.0e-6);
 		biasCorrectedTS(biasCorrectedTS>5*xtrm) = 5*xtrm;
+
+                biasCorrectedTS_alt(biasCorrectedTS_alt>5*xtrm) = Xmp(biasCorrectedTS_alt>5*xtrm)/(nanmean(Xmc)+1.0e-6).*(nanmean(Xoc)+1.0e-6);
+                biasCorrectedTS_alt(biasCorrectedTS_alt>5*xtrm) = 5*xtrm;
 
 		%% Return Gamma Mean
 		[bcParams] = gamfitMOM(biasCorrectedTS([biasCorrectedTS>0]));
 		rainDays = length(biasCorrectedTS([biasCorrectedTS>0]))/length(biasCorrectedTS);
 		tsMean = bcParams(1)*bcParams(2)*rainDays;
 
-		%% On some occasions, Xoc is set to zero because there are so many dry days
-                %% tsMean NaN occurs when bcParams is NaN -- which occurs if biasCorrectedTS is all zeros
-                %% biasCorrectedTS is all zero when Xoc is set to zero and alternate bias correction formula is used
-		if isnan(tsMean)
-			tsMean = 0;
+		[bcParams_alt] = gamfitMOM(biasCorrectedTS_alt([biasCorrectedTS_alt>0]));
+		rainDays_alt = length(biasCorrectedTS_alt([biasCorrectedTS_alt>=0]))/length(biasCorrectedTS_alt);
+		tsMean_alt = bcParams_alt(1)*bcParams_alt(2)*rainDays_alt;
+
+		%% This ensures continuity across two different computations
+		nanHandled = 0;
+		if tsMean < tsMean_alt || isnan(tsMean)
+			tsMean = tsMean_alt;
+			nanHandled = 1;
 		end
 
 		if tsMean < 0
