@@ -31,7 +31,12 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = q
 
 	%% 3. Send them down for processing
 	if ~isempty(pptFlag)
-		[lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = haibinPrecip(obs,hist,lgm,midH);
+		%[lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = haibinPrecip(obs,hist,lgm,midH);
+		lgmMean = mean(obs)*mean(lgm)/mean(hist);
+		midHMean = mean(obs)*mean(midH)/mean(hist);
+		lgmStd = std(obs)*std(lgm)/std(hist);
+		midHStd = std(obs)*std(midH)/std(hist);
+		lgmNanHandled = 0; midHNanHandled = 0;
 	else
 		[lgmMean, midHMean, lgmStd, midHStd] = tempBcsd(obs,hist,lgm,midH);
 		lgmNanHandled = 0; midHNanHandled = 0;

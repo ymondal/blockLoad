@@ -11,7 +11,9 @@
 
 function compareAnoms
 
-	dataPath = struct('obs','/home/data/obs/PRISM_345/','gcm','/home/data/gcm/ccsm4/', 'save','/home/data/blockLoad/');
+	dataPath = struct('obs','/home/data/obs/PRISM_345/','gcm','/home/data/gcm/ccsm4/', 'save','/home/data/blockLoad/', ...
+		'main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/run_8/run_8_raw/', 'matlabRoot','/home/matlabFiles');
+
 	boxBorder = [0,1,3105,1,7025];
 
 	prClimatology = struct('hist',[],'lgm',[],'midH',[],'lat',[],'lon',[]);
@@ -57,8 +59,9 @@ function compareAnoms
 	bcsdPath = strcat(dataPath.save,'testData/CONUS/');
 	bcsdAnoms = u2_computeBCSDanoms(bcsdPath);
 
-	tempAnomsFromGCM = tempAnoms; precipAnomsFromGCM = precipAnoms;
-	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/Anomalies_F.mat','tempAnomsFromGCM','precipAnomsFromGCM','bcsdAnoms','-v7.3');
+save('/home/ubuntu/data/blockLoad/testData/CONUS/final/precip_anoms_GCM_8.mat','precipAnoms','-v7.3');
+save('/home/ubuntu/data/blockLoad/testData/CONUS/final/BCSD_Anomalies_8.mat','bcsdAnoms','-v7.3');
+asdf
 
         metaAnoms = struct('tas',[],'tmin',[],'tmax',[],'precip',[]);
         metaAnoms.tas = struct('lgm',[],'midH',[]);
@@ -74,9 +77,11 @@ function compareAnoms
         metaAnoms.precip.lgm = precipAnoms.lgm - bcsdAnoms.precip.lgm;
         metaAnoms.precip.midH = precipAnoms.midH - bcsdAnoms.precip.midH;
 
-	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/MetaAnomalies_F.mat','metaAnoms','-v7.3');
-	disp('erase this. also tabulate ranges in all meta anomalies for each every month and variable. love -- pastYoshi')
-keyboard
+%bcsdAnoms.tmax = 0; bcsdAnoms.tmin = 0; bcsdAnoms.tas = 0;
+%bcsdAnoms
+metaAnoms.tmax = 0; metaAnoms.tmin = 0; metaAnoms.tas = 0;
+metaAnoms
+	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/ccsm4_BCSD_metaAnomalies_8.mat','metaAnoms','-v7.3');
 
 	function [anomalies] = precip_comp(prStack,boxBorder,inputDataPath)
 
@@ -92,6 +97,11 @@ keyboard
 	end
 
 	function [anomalies] = temp_comp(inputDataPath,boxBorder,tminStack,tmaxStack,tasStack)
+
+anomalies = struct('tas',[],'tmin',[],'tmax',[]);
+anomalies.tas = struct('lgm',NaN,'midH',NaN);
+anomalies.tmin = anomalies.tas; anomalies.tmax = anomalies.tas;
+return
 
 		anomalies = struct('tas',[],'tmin',[],'tmax',[]);
 		anomalies.tas = struct('lgm',[],'midH',[]);

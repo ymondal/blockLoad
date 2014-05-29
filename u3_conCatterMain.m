@@ -11,7 +11,7 @@
 %% 
 function conCatterMain(isTemp)
 
-	runNum = 8;
+	runNum = 10;
 	monthsRun = 12; %2
 	sectionStart = 1; %141
 	sectionEnd = 345; %171
@@ -20,9 +20,9 @@ function conCatterMain(isTemp)
 	%dataPath.save = '/Users/yoshi/Code/2013_keck/blockLoad/';
 
 	%region = 'CONUS';
-	region = 'CONUS/run_8';
+	region = 'CONUS/run_10';
 
-	savePath = strcat(dataPath.save,'testData/CONUS/run_8/run_8_raw/');
+	savePath = strcat(dataPath.save,'testData/CONUS/run_10/run_10_raw/');
 	plotPath = strcat(dataPath.save,'pics/',region,'/');
 	sectionTot = sectionEnd - sectionStart + 1;
 
@@ -145,34 +145,34 @@ function conCatterMain(isTemp)
 			
 				precipM.lgm.mean = cat(1,precipM.lgm.mean,precipPart.lgm.mean);
 				precipM.lgm.std = cat(1,precipM.lgm.std,precipPart.lgm.std);
-				precipM.lgm.nanHandled = cat(1,precipM.lgm.nanHandled,precipPart.lgm.nanHandled);
+%				precipM.lgm.nanHandled = cat(1,precipM.lgm.nanHandled,precipPart.lgm.nanHandled);
 				precipM.midH.mean = cat(1,precipM.midH.mean,precipPart.midH.mean);
 				precipM.midH.std = cat(1,precipM.midH.std,precipPart.midH.std);
-				precipM.midH.nanHandled = cat(1,precipM.midH.nanHandled,precipPart.midH.nanHandled);
+%				precipM.midH.nanHandled = cat(1,precipM.midH.nanHandled,precipPart.midH.nanHandled);
 				precipM.obs = cat(1,precipM.obs,precipPart.obs);
 
 			end
 			
 			precip.lgm.mean = cat(3,precip.lgm.mean,precipM.lgm.mean);
 			precip.lgm.std = cat(3,precip.lgm.std,precipM.lgm.std);
-			precip.lgm.nanHandled = cat(3,precip.lgm.nanHandled,precipM.lgm.nanHandled);
+%			precip.lgm.nanHandled = cat(3,precip.lgm.nanHandled,precipM.lgm.nanHandled);
 			precip.midH.mean = cat(3,precip.midH.mean,precipM.midH.mean);
 			precip.midH.std = cat(3,precip.midH.std,precipM.midH.std);
-			precip.midH.nanHandled = cat(3,precip.midH.nanHandled,precipM.midH.nanHandled);
+%			precip.midH.nanHandled = cat(3,precip.midH.nanHandled,precipM.midH.nanHandled);
 			precip.obs = cat(3,precip.obs,precipM.obs);
-keyboard
+
 			arcgridwriteCustom(strcat(savePath,'precip_lgm_mean_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.mean,boxBorder)
 			arcgridwriteCustom(strcat(savePath,'precip_midH_mean_M',sprintf('%2.2d',month),'.asc'),precipM.midH.mean,boxBorder)
 			arcgridwriteCustom(strcat(savePath,'precip_obs_mean_M',sprintf('%2.2d',month),'.asc'),precipM.obs,boxBorder)
-			arcgridwriteCustom(strcat(savePath,'precip_lgm_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.nanHandled,boxBorder)
-                        arcgridwriteCustom(strcat(savePath,'precip_midH_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.midH.nanHandled,boxBorder)
+%			arcgridwriteCustom(strcat(savePath,'precip_lgm_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.nanHandled,boxBorder)
+%                        arcgridwriteCustom(strcat(savePath,'precip_midH_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.midH.nanHandled,boxBorder)
 			
 			precipM = struct('lgm',[],'midH',[],'obs',[]);
 			precipM.lgm = struct('mean',[],'std',[],'nanHandled',[]);
 			precipM.midH = struct('mean',[],'std',[],'nanHandled',[]);
 		end
 
-		%zip(strcat(savePath,'PRECIP_',int2str(runNum),'.zip'),strcat(savePath,'*.asc'))
+		zip(strcat(savePath,'PRECIP_',int2str(runNum),'.zip'),strcat(savePath,'*.asc'))
 		%system(['rm ' strcat(savePath,'*.asc')])
 
 		save(strcat(savePath,'PRECIP_',int2str(runNum),'.mat'),'precip','boxBorder','plotPath','region','-v7.3')
