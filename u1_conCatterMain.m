@@ -1,14 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NAME: precip_main.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% NAME: u1_conCatterMain.m
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
-%% DESCRIPTION: This script bias corrects lgm and midHolocene GCM preciptitation records.
-%% INPUTS: - none -
+%% DESCRIPTION: RUN AFTER main.m FINSHES. This script is used to is to concatenate the outputs to
+%%		produce a final downscaled US map. This is saved to *.mat and *.asc
+%% INPUTS: isTemp - concatenting temperature or precip records?
 %% OUTPUTS: - none -
 %%
 %% HISTORY:
 %% YM 06/04/2013 -- Created
 %% 
+
 function conCatterMain(isTemp)
 
 	runNum = 10;
@@ -90,8 +92,8 @@ function conCatterMain(isTemp)
 
 			tas.lgm.mean = cat(3,tas.lgm.mean,tasM.lgm.mean);
 			tas.lgm.std = cat(3,tas.lgm.std,tasM.lgm.std);
-			%tas.midH.mean = cat(3,tas.midH.mean,tasM.midH.mean);
-			%tas.midH.std = cat(3,tas.midH.std,tasM.midH.std);
+			tas.midH.mean = cat(3,tas.midH.mean,tasM.midH.mean);
+			tas.midH.std = cat(3,tas.midH.std,tasM.midH.std);
 			tas.obs = cat(3,tas.obs,tasM.obs);
 
 			arcgridwriteCustom(strcat(savePath,'tmin_lgm_mean_M',sprintf('%2.2d',month),'.asc'),tminM.lgm.mean,boxBorder)
@@ -117,13 +119,10 @@ function conCatterMain(isTemp)
 		end
 
 		zip(strcat(savePath,'TEMPERATURE_',int2str(runNum),'.zip'),strcat(savePath,'*.asc'))
-	%	system(['rm ' strcat(savePath,'*.asc')])
-	%	save(strcat(savePath,'TEMPERATURE_',int2str(runNum),'.mat'),'tas','tmin','tmax','boxBorder','plotPath','region','-v7.3')
-%		plotter(tmin.lgm.mean,tmin.midH.mean,tmin.obs,boxBorder,'TMIN',plotPath,region)
-%		plotter(tmax.lgm.mean,tmax.midH.mean,tmax.obs,boxBorder,'TMAX',plotPath,region)
-%		plotter(tas.lgm.mean,tas.midH.mean,tas.obs,boxBorder,'TAS',plotPath,region)
-%		system(['rm ' strcat(savePath,'TEMPERATURE_*_M*')])
-%		system(['rm /home/data/blockLoad/fileLocker/tempData.mat'])
+		system(['rm ' strcat(savePath,'*.asc')])
+		save(strcat(savePath,'TEMPERATURE_',int2str(runNum),'.mat'),'tas','tmin','tmax','boxBorder','plotPath','region','-v7.3')
+		system(['rm ' strcat(savePath,'TEMPERATURE_*_M*')])
+		system(['rm /home/data/blockLoad/fileLocker/tempData.mat'])
 
 	else
 
@@ -145,27 +144,27 @@ function conCatterMain(isTemp)
 			
 				precipM.lgm.mean = cat(1,precipM.lgm.mean,precipPart.lgm.mean);
 				precipM.lgm.std = cat(1,precipM.lgm.std,precipPart.lgm.std);
-%				precipM.lgm.nanHandled = cat(1,precipM.lgm.nanHandled,precipPart.lgm.nanHandled);
+				precipM.lgm.nanHandled = cat(1,precipM.lgm.nanHandled,precipPart.lgm.nanHandled);
 				precipM.midH.mean = cat(1,precipM.midH.mean,precipPart.midH.mean);
 				precipM.midH.std = cat(1,precipM.midH.std,precipPart.midH.std);
-%				precipM.midH.nanHandled = cat(1,precipM.midH.nanHandled,precipPart.midH.nanHandled);
+				precipM.midH.nanHandled = cat(1,precipM.midH.nanHandled,precipPart.midH.nanHandled);
 				precipM.obs = cat(1,precipM.obs,precipPart.obs);
 
 			end
 			
 			precip.lgm.mean = cat(3,precip.lgm.mean,precipM.lgm.mean);
 			precip.lgm.std = cat(3,precip.lgm.std,precipM.lgm.std);
-%			precip.lgm.nanHandled = cat(3,precip.lgm.nanHandled,precipM.lgm.nanHandled);
+			precip.lgm.nanHandled = cat(3,precip.lgm.nanHandled,precipM.lgm.nanHandled);
 			precip.midH.mean = cat(3,precip.midH.mean,precipM.midH.mean);
 			precip.midH.std = cat(3,precip.midH.std,precipM.midH.std);
-%			precip.midH.nanHandled = cat(3,precip.midH.nanHandled,precipM.midH.nanHandled);
+			precip.midH.nanHandled = cat(3,precip.midH.nanHandled,precipM.midH.nanHandled);
 			precip.obs = cat(3,precip.obs,precipM.obs);
 
 			arcgridwriteCustom(strcat(savePath,'precip_lgm_mean_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.mean,boxBorder)
 			arcgridwriteCustom(strcat(savePath,'precip_midH_mean_M',sprintf('%2.2d',month),'.asc'),precipM.midH.mean,boxBorder)
 			arcgridwriteCustom(strcat(savePath,'precip_obs_mean_M',sprintf('%2.2d',month),'.asc'),precipM.obs,boxBorder)
-%			arcgridwriteCustom(strcat(savePath,'precip_lgm_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.nanHandled,boxBorder)
-%                        arcgridwriteCustom(strcat(savePath,'precip_midH_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.midH.nanHandled,boxBorder)
+			arcgridwriteCustom(strcat(savePath,'precip_lgm_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.lgm.nanHandled,boxBorder)
+                        arcgridwriteCustom(strcat(savePath,'precip_midH_nanHandled_M',sprintf('%2.2d',month),'.asc'),precipM.midH.nanHandled,boxBorder)
 			
 			precipM = struct('lgm',[],'midH',[],'obs',[]);
 			precipM.lgm = struct('mean',[],'std',[],'nanHandled',[]);
@@ -176,8 +175,8 @@ function conCatterMain(isTemp)
 		%system(['rm ' strcat(savePath,'*.asc')])
 
 		save(strcat(savePath,'PRECIP_',int2str(runNum),'.mat'),'precip','boxBorder','plotPath','region','-v7.3')
-%		plotter(precip.lgm.mean,precip.midH.mean,precip.obs,boxBorder,'PPT',plotPath,region)
-%		system(['rm ' strcat(savePath,'PRECIP_*_M*')])
+		plotter(precip.lgm.mean,precip.midH.mean,precip.obs,boxBorder,'PPT',plotPath,region)
+		system(['rm ' strcat(savePath,'PRECIP_*_M*')])
 
 	end
 end

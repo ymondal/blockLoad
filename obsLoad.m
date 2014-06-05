@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NAME: obsLoad.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
-%% DESCRIPTION: 
+%% DESCRIPTION: Load observation data after its been preprocessed
 %% INPUTS: filePath (where to find files), boxLatLon (bounding region), monthIdx (which months
 %%		to fetch)
 %% OUTPUTS: obsStack (the stack of observations for a given month)

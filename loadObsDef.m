@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NAME: obsDef.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% NAME: loadObsDef.m
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
 %% DESCRIPTION: This function returns the PRISM resolution parameters. Everything is hardcoded.
 %% INPUTS: - none -

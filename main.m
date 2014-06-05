@@ -1,14 +1,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NAME: main.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
 %% DESCRIPTION: This script is meant to be run a cluster of 5 c3.xlarge EC2 machines. A compiled
 %%		version of this script runs on each node -- one for each month. 4 months are run
 %%		at once. Each node runs 30 threads -- 3 versions of this code run on different parts
 %%		of the US.
-%% INPUTS: THIS SCRIPT ASSUMES PREPROCESSING HAS BEEN RUN. MAKE SURE OBSERVATIONS ARE REFORMED
-%%		INTO 345 BLOCKS.
+%% INPUTS: month -- month to downscale, parStart -- section to start with [1-345],
+%%		parEnd -- section toend with [1-345]
 %% OUTPUTS: Bias Corrected Precip and Temperature on subsections on CONUS.
+%% NOTES: THIS SCRIPT ASSUMES OBSERVATIONS HAVE BEEN PREPROCESSED TO INTO 345 BLOCKS.
 %%
 %% HISTORY:
 %% YM 07/15/2013 -- Created
@@ -90,7 +91,7 @@ function main(month,parStart,parEnd)
         end
 
         matlabpool close
-error('done!')
+
 	%% TEMPERATURE
 	clear prStack
 	global tminStack tasStack tmaxStack

@@ -1,3 +1,15 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NAME: u4_plot_CONUS_anoms.m
+%% PROJECT: MVZ Downscaling
+%% AUTHOR: Yugarshi Mondal
+%% DESCRIPTION: This utility script plots fields and their anomalies after they've 
+%%		been the results have been concatenated by u1_conCatterMain.m
+%% INPUTS: - none -
+%% OUTPUTS: - none -
+%%
+%% HISTORY:
+%% YM 12/04/2013 -- Created
+
 load TAS_F.mat
 
 %%obs

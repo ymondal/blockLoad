@@ -1,11 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NAME: quantileMatching.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% NAME: tempBcsd.m
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
-%% DESCRIPTION: This routing bias corrects lgm and midH time series for a particular month
-%%		at a particular point on the US map. Quantiles are matched to
-%%		from observations and historical runs from lgm/midH runs. This routine
-%%		is called in a very long loop from main.m
+%% DESCRIPTION: bias corrects lgm and mid-holocene temperature series using EDCSFm
 %% INPUTS: obs, hist, lgm, midH (time sereis)
 %% OUTPUTS: corrected means and stdDev of lgm & midH
 %%
@@ -48,22 +45,21 @@ function [lgmMean, midHMean, lgmStd, midHStd] = tempBcsd(obs,hist,lgm,midH)
 	% 2. MidH
 
 		% A. Bias Correction
-%		midHParams = computeShapeParameters(midH);
-%		projQuantiles = Fmp_lookup(midHParams,midH);
-%		Term2 = Foc_inv(obsParams,projQuantiles);
-%		Term3 = Fmc_inv(histParams,projQuantiles);
-%		adjustedMidH = midH + Term2 - Term3;
+		midHParams = computeShapeParameters(midH);
+		projQuantiles = Fmp_lookup(midHParams,midH);
+		Term2 = Foc_inv(obsParams,projQuantiles);
+		Term3 = Fmc_inv(histParams,projQuantiles);
+		adjustedMidH = midH + Term2 - Term3;
 
 		% B. Compute Shape Parameter Estimates & Compute Distribution Statistics
-%		mdHP = computeShapeParameters(adjustedMidH);
-%		midHMean = mdHP.p / (mdHP.p + mdHP.q);
-%		midHStd = sqrt((mdHP.p * mdHP.q)/((mdHP.p + mdHP.q)^2*(mdHP.p + mdHP.q + 1)));
+		mdHP = computeShapeParameters(adjustedMidH);
+		midHMean = mdHP.p / (mdHP.p + mdHP.q);
+		midHStd = sqrt((mdHP.p * mdHP.q)/((mdHP.p + mdHP.q)^2*(mdHP.p + mdHP.q + 1)));
 
 		% C. Adjust the old Means and Stdevs: Invert the renormalization to recover means & std devs
-%		midHMean = midHMean * (mdHP.b-mdHP.a) + mdHP.a;
-%		midHStd = sqrt(midHStd^2*(mdHP.b-mdHP.a)^2);
-midHMean = 0;
-midHStd = 0;
+		midHMean = midHMean * (mdHP.b-mdHP.a) + mdHP.a;
+		midHStd = sqrt(midHStd^2*(mdHP.b-mdHP.a)^2);
+
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%% NESTED HELPER FUNCTIONS
 	%% 	1. Compute Shape Parameters

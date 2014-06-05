@@ -1,3 +1,15 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NAME: u4_plot_CONUSvGCM_anoms.m 
+%% PROJECT: MVZ Downscaling
+%% AUTHOR: Yugarshi Mondal
+%% DESCRIPTION: This utility script plots metaAnomalies after they've been computed by
+%%		u2_compareAnoms.m 
+%% INPUTS: - none -
+%% OUTPUTS: - none -
+%%
+%% HISTORY:
+%% YM 03/04/2014 -- Created
+
 load ccsm4_BCSD_metaAnomalies_F
 
 %% midH

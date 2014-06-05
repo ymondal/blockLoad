@@ -1,8 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NAME: compareAnomalies.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% NAME: u2_compareAnoms
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
-%% DESCRIPTION: This script bias corrects lgm and midHolocene GCM preciptitation records.
+%% DESCRIPTION: compares the anomalies of adjusted model projected and model projected fields
+%% 		(ie creates metaAnomalies)
 %% INPUTS: - none -
 %% OUTPUTS: - none -
 %%
@@ -75,8 +76,6 @@ function compareAnoms
         metaAnoms.precip.midH = precipAnoms.midH - bcsdAnoms.precip.midH;
 
 	save('/home/ubuntu/data/blockLoad/testData/CONUS/final/MetaAnomalies_F.mat','metaAnoms','-v7.3');
-	disp('erase this. also tabulate ranges in all meta anomalies for each every month and variable. love -- pastYoshi')
-keyboard
 
 	function [anomalies] = precip_comp(prStack,boxBorder,inputDataPath)
 

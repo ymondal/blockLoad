@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NAME: stackBlock.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
 %% DESCRIPTION: This function interpolates the GCM data to observational resolution. The 
 %%		definitions for the resolution are hard coded from analysis -- so it is 

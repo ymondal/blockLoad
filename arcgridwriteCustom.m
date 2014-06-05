@@ -1,9 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NAME: precip_main.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% NAME: arcgridwriteCustom.m
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
-%% DESCRIPTION: This script bias corrects lgm and midHolocene GCM preciptitation records.
-%% INPUTS: - none -
+%% DESCRIPTION: Takes matricies and writes them out to asc files
+%% INPUTS: filesName - path to write asc file, Z - matrix, boxBorder - range of written asc
 %% OUTPUTS: - none -
 %%
 %% HISTORY:
@@ -45,16 +45,6 @@ function arcgridwrite(fileName,Z,boxBorder)
 	fprintf(fid,'%s\t','NODATA_value');
 	fprintf(fid,[dc,'\n'],-9999);
 
-	%configure filename and path
-	%[pname,fname,ext] = fileparts(fileName);
-	%if isempty(pname)==1;
-	%    pname=pwd;
-	%end
-
-	%if strcmpi(pname(end),filesep)~=1
-	%    pname=[pname,filesep];
-	%end
-
 
 	test=repmat([dc,'\t'],1,nz); 
 	test(end-1:end)='\n'; 
@@ -64,7 +54,6 @@ function arcgridwrite(fileName,Z,boxBorder)
 	end 
 
 
-	%close(h)
 	fclose(fid);
 
 end

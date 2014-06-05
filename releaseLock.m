@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NAME: getLock.m
-%% PROJECT: EDCDFm
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
 %% DESCRIPTION: This functions implements a rudimentary lock releasing mechanism. It's called
 %%              after thread finishes using GCM and PRISM data. This is done so that multiple threads

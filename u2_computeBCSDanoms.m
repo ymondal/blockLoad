@@ -1,10 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NAME: computeBCSDanoms.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% NAME: u2_computeBCSDanoms.m
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
-%% DESCRIPTION: This script bias corrects lgm and midHolocene GCM preciptitation records.
-%% INPUTS: - none -
-%% OUTPUTS: - none -
+%% DESCRIPTION: This function creates adjusted model-projected anomalies
+%% INPUTS: path (path to data)
+%% OUTPUTS: bcsdAnoms (struct of adjusted model-projected anomalies for all variables)
 %%
 %% HISTORY:
 %% YM 06/04/2013 -- Created

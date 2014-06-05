@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NAME: fileLoader.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
 %% DESCRIPTION: This script loads uninterpolated model GCM files into memory
 %% INPUTS: ncFilesToLoad (variable to fetch), Pwdz (paths struct), 
@@ -76,6 +76,5 @@ function files = fileLoader(ncFilesToLoad,Pwdz,monthIdx)
 	masks = 0;
 
 	files = struct('hist',histStack,'lgm',lgmStack,'midH',midHStack,'lat',gcm_lat,'lon',gcm_lon,'glacierMask',masks,'month',monthIdx);
-
 
 end

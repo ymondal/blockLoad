@@ -1,16 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NAME: quantileMatching.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
-%% DESCRIPTION: This shell script preps t-series for BCSD and sends them to appropriate scripts
-%%			or returns NaN if nothing is to be computed at the point.
+%% DESCRIPTION: This shell script either downscales precipitation or sends temperature t-series
+%%			for downscaling elsewhere.
 %% INPUTS: obs, hist, lgm, midH (unprocessed tseries), pptFlag, mask (depricated)
 %% OUTPUTS: lgmMean (mean for lgm at that point), miHMean (mean for midH at this point), etc.
 %%
 %% HISTORY:
 %% YM 02/27/2014 -- First Draft Written
 
-function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = quantileMatch(obs,hist,lgm,midH,pptFlag)
+function [lgmMean, midHMean, lgmStd, midHStd] = quantileMatch(obs,hist,lgm,midH,pptFlag)
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%% PREPROCESS
@@ -36,10 +36,8 @@ function [lgmMean, midHMean, lgmStd, midHStd, lgmNanHandled, midHNanHandled] = q
 		midHMean = mean(obs)*mean(midH)/mean(hist);
 		lgmStd = std(obs)*std(lgm)/std(hist);
 		midHStd = std(obs)*std(midH)/std(hist);
-		lgmNanHandled = 0; midHNanHandled = 0;
 	else
 		[lgmMean, midHMean, lgmStd, midHStd] = tempBcsd(obs,hist,lgm,midH);
-		lgmNanHandled = 0; midHNanHandled = 0;
 	end
 		
 end

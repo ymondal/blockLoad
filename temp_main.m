@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NAME: precip_main.m
+%% NAME: temp_main.m
 %% PROJECT: Bias-Corrected Spatial Disaggregation
 %% AUTHOR: Yugarshi Mondal
 %% DESCRIPTION: This script bias corrects lgm and midHolocene GCM temperature records.

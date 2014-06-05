@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NAME: precip_main.m
-%% PROJECT: Bias-Corrected Spatial Disaggregation
+%% PROJECT: MVZ Downscaling
 %% AUTHOR: Yugarshi Mondal
 %% DESCRIPTION: This script bias corrects lgm and midHolocene GCM precipitation records.
 %% INPUTS: prStack (GCM stacks), boxBorder (region to interpolate), region (for savePath
@@ -58,8 +58,7 @@ function precip_main(prStack,boxBorder,region,inputDataPath,CONUSrun)
 
 			%isMasked.lgm = mask.lgm(row,col); isMasked.hist = mask.hist(row,col); isMasked.midH = mask.midH(row,col);
 
-			[precipPart.lgm.mean(row,col), precipPart.midH.mean(row,col),precipPart.lgm.std(row,col),precipPart.midH.std(row,col),...
-				precipPart.lgm.nanHandled(row,col),precipPart.midH.nanHandled(row,col)] = ... 
+			[precipPart.lgm.mean(row,col), precipPart.midH.mean(row,col),precipPart.lgm.std(row,col),precipPart.midH.std(row,col)] =
 				quantileMatch(obsStack(row,col,:),histBlock(row,col,:),lgmBlock(row,col,:),midHBlock(row,col,:),5);
 
 		end
