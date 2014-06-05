@@ -14,16 +14,18 @@ PRISM data
 
 1. Preprocessing PRISM data
 ---------------------------
+```
 DESCRIPTION: PRISM was given my Michelle as arc project files. These need to be converted to ascii to be read by MATLAB. It's impossible to hold all ~1300 observation files at once in memory. Downscaling requires continuous time-series, not spatially continugous fields. So ascii files are cut into 345 parts and stacked so they're continuous in time. This is done for each variable.
 INPUTS: PRSIM project files
 OUTPUTS: PPT_[1-345].mat, TMIN_[1-345].mat, TMAX_[1-345].mat -- chunked observation files
 
 - converstion.py // using arcpy, convert arcGIS project files into asc files
 - obsBlockPreproc.m // this is done to create observation time series, each ascii file cut into 345 parts and rebuilt so they're continuous in time
-
+```
 
 2. Downscaling Code
 -------------------
+```
 DESCRIPTION: 
 INPUTS: Preprocessed PRISM data, CCSM4 netcdf files (precip, tmin, tmax, tas for lgm, historical, and mid-Holocene)
 OUTPUTS: PPT_[1-345]_M[1-12].mat, TMIN_[1-345]_M[1-12].mat, TMAX_[1-345]_M[1-12].mat, TMAX_[1-345]_M[1-12].mat -- sections of monthly climatology
@@ -42,11 +44,13 @@ OUTPUTS: PPT_[1-345]_M[1-12].mat, TMIN_[1-345]_M[1-12].mat, TMAX_[1-345]_M[1-12]
   * temp_main.m // temperature downscaling
   * * quantileMatching.m // quantile matching script
   * * temp_main.m // EDCDFm for temperature
-  
+```  
 3. Utilities
 -------------------
+```
 DESCRIPTION: Independant scripts that accomplish different tasks
 INPUTS: - consult script header -
 OUTPUTS: - consult script header -
 
 - u1_
+```
