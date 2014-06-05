@@ -1,6 +1,22 @@
-blockLoad
-=========
+Climate Model Downscaling
+=========================
 
-EDCDFm Implementation over continental US. Observation base data is PRISM at 800m resolution. Climate model data is CCSM4. The methods are described in:
+This code was used to create downscaled climatologies over CONUS. The observations were taken from PRISM and the model was CCSM4.
 
-Bias Correction and Downscaling of PMIP3 simulations of Past Climates over the Continental United States for Ecological Modeling Applications (in prep)
+The following tree describes the workflow of processing data.
+
+Inputs and Data needed
+GCM CCSM4 data lgm and midH pr, tas, tmin, tmax
+PRISM data
+
+1. Preprocessing PRISM data
+---------------------------
+Same block commenting as code
+
+PRISM was given my Michelle as arc project files. These needed to be converted to ascii files. Before running downscaling, observation data also needed to be reshaped and saved back to disk. It's impossible to hold all ~1300 observation filesat once.
+
+*converstion.py | using arcpy, convert arcGIS project files into asc files
+*obsBlockPreproc.m | this is done to create observation time series, each ascii file cut into 345 parts and rebuilt so they're continuous in time
+
+
+*main.m | this takes 
