@@ -46,6 +46,7 @@ function arcgridwrite(fileName,Z,boxBorder)
 	fprintf(fid,[dc,'\n'],-9999);
 
 
+	%write body
 	test=repmat([dc,'\t'],1,nz); 
 	test(end-1:end)='\n'; 
 	%write data 

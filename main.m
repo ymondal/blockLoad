@@ -18,7 +18,7 @@
 %% MAIN SHELL-ROUTINE // This routine calls others to do its work
 %% 1. Define Region of Interest: Call createBox, the parameters in this routine
 %%	are shared amongst many routines. The define the region of interest.
-%% 2. Run BCSD on Region
+%% 2. Run Downscaling on Region
 
 function main(month,parStart,parEnd)
 
@@ -54,8 +54,6 @@ function main(month,parStart,parEnd)
 	parDiff = parEnd - parStart;
 	boxBorder = [runNum, 9*(parStart-1) + 1, 9*parEnd,1,7025];
 
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%% 2. Define Path Struct
 	global dataPath
 	dataPath = struct('obs','/home/data/obs/PRISM_345/','gcm','/home/data/gcm/ccsm4/', ...
 	'save','/home/data/blockLoad/','main','/home/ubuntu/files/code/bcsd/blockLoad/testData/CONUS/', ...
@@ -64,8 +62,11 @@ function main(month,parStart,parEnd)
 	%% dataPath = struct('obs','/Users/yoshi/PRISM_345/','gcm','/Volumes/data/data/GCM/CCSM4/','save','/Users/yoshi/Code/2013_keck/blockLoad/'); %% home
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%% 3. BCSD
+	%% DOWNSCALING
+	%% 1. Precipitation
+	%% 2. Temperature
 
+	%% 1. PRECIPITATION
 	global prStack
 	prStack = fileLoader('pr',dataPath,monthLoop)
 	%% Percip in mm/month (sec => mins => hours => days/month)
@@ -78,7 +79,6 @@ function main(month,parStart,parEnd)
 	% clear boxBorder so it can be loaded by threads
 	clear boxBorder
 
-	%% PRECIPITATION
         disp('Full Computation: Starting Preciptation BCSD')
 
         matlabpool open local 10
@@ -92,7 +92,7 @@ function main(month,parStart,parEnd)
 
         matlabpool close
 
-	%% TEMPERATURE
+	%% 2. TEMPERATURE
 	clear prStack
 	global tminStack tasStack tmaxStack
 	tminStack = fileLoader('tasmin',dataPath,monthLoop)

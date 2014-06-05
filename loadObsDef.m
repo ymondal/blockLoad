@@ -44,6 +44,3 @@ function obsDef = loadObsDef()
 	last_lon = zero_lon + 7025 * delta_lon;
 
 	obsDef = struct('zero_lat',zero_lat,'delta_lat',delta_lat,'first_lat',first_lat,'last_lat',last_lat,'zero_lon',zero_lon,'delta_lon',delta_lon,'first_lon',first_lon,'last_lon',last_lon,'zeroLat',zero_lat,'deltaLat',delta_lat,'firstLat',first_lat,'lastLat',last_lat,'zeroLon',zero_lon,'deltaLon',delta_lon,'firstLon',first_lon,'lastLon',last_lon);
-
-
-

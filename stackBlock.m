@@ -14,29 +14,33 @@
 function [interpolatedSlice] = stackBlock(lat,lon,stack,boxLatLon)
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%% INITIALIZATION
-	%% For each time slice:
-	%% 1. Query the gridded interpolant at PRISM's LATq and LONq @ row slice,
-	%% 	and load each into interpolatedSlice.
+	%% INITIALIZATION // PRISM is gridded one way, GCM is gridded another
+	%%			these initialization steps define a common gridding,
+	%%			then interpolate over the region of interest
+	%% 1. Load region of interest
+	%% 2. Load Observation Definitions
+	%% 3. Convert PRISM lats and lons to GCM convention, create PRISM lat/lon mesh
+	%% 4. Create a GCM lat/lon mesh
 
+	%% 1. Region of Interest
 	dummy = boxLatLon(1,2:5); %% Drop 1st col & last two rows of boxLatLon
 	clear boxLatLon; boxLatLon = dummy;
-	obsDef = loadObsDef();
 
+	%% 2. Load Observation Defs
+	obsDef = loadObsDef();
 	PRISM_LONS = [obsDef.first_lon:obsDef.delta_lon:obsDef.last_lon];
 	PRISM_LATS = [obsDef.first_lat:obsDef.delta_lat:obsDef.last_lat];
 
-	%% Conversions
+	%% 3. Convert PRISM lats and Lons so they're consistant with GCM
 	PRISM_LONS = 360 + PRISM_LONS; % PRISM_LON assigns a lat value that's continuously counted up from the East of Prime Meridian
 	%% Creating and Subsetting LATq and LONq
 	[LATq,LONq] = ndgrid(PRISM_LATS,PRISM_LONS);
 	LATq = LATq(boxLatLon(1):boxLatLon(2),boxLatLon(3):boxLatLon(4));
 	LONq = LONq(boxLatLon(1):boxLatLon(2),boxLatLon(3):boxLatLon(4));
-
 	%boxLatLon Counts from the top, but GCM counts from the bottom
 	LATq = flipud(LATq);
 	
-	%% 2. Create ngrid from GCM data
+	%% 4. Create ngrid from GCM data
 	%% IMPORTANT: Recenter GCM lats and lons
 	[LATbase, LONbase] = ndgrid(lat,lon);
 
